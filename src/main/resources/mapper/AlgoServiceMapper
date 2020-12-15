@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.AlgoServiceMapper">
+    <resultMap id="AlgoServiceInfo" type="com.example.demo.entity.AlgoService">
+    </resultMap>
+    <insert id="insertAlgoService">
+        insert into t_dl_algoplatform_algo_service (SERVICEID, SERVICENAME, ENV, SERVICEPORT, CPUREQUESTS, GPUREQUESTS,
+                                                    MEMREQUESTS, IMAGEMOUNT, IMAGENAME, DELETEFLAG, CONFIG, EVENTTYPE,
+                                                    METRIC, TARGET, ISSTART, PORTTYPR, IMAGEID, TASKCOUNT, IMAGETAG)
+        values (#{serviceId}, #{serviceName}, #{env}, #{servicePort}, #{cpuRequests}, #{gpuRequests}, #{memRequests},
+                #{imageMount}, #{imageName}, #{deleteFlag}, #{config}, #{eventType}, #{metric}, #{target},
+                #isStart), #{portType}, #{imageId}, #{taskCount}, #{imageTag})
+    </insert>
+    <select id="queryAlgoServiceInfo" resultMap="AlgoServiceInfo">
+        select SERVICEID, SERVICENAME, ENV, SERVICEPORT, CPUREQUESTS, GPUREQUESTS, MEMREQUESTS, IMAGEMOUNT, IMAGENAME,
+        DELETEFLAG, CONFIG, EVENTTYPE, METRIC, TARGET, ISSTART, PORTTYPR, IMAGEID, TASKCOUNT, IMAGETAG
+        from t_dl_algoplatform_algo_service
+        <where>
+            DELETEFLAG=0
+            <if test="serviceName != null and serviceName != ''">
+                and SERVICENAME = #{serviceName}
+            </if>
+            <if test="serviceId != null and serviceId != ''">
+                and SERVICEID= #{serviceId}
+            </if>
+        </where>
+    </select>
+    <update id="updateStartStatus">
+        update t_dl_algoplatform_algo_serviceName
+        <set>
+            <if test="isStart != null and isStart !=''">
+                ISSTART = #{isStart},
+            </if>
+        </set>
+        <where>
+            DELETEFLAG=0
+            <if test="serviceName != null and serviceName != ''">
+                and serviceName = #{serviceName}
+            </if>
+        </where>
+    </update>
+    <update id="updateTaskCount">
+        update t_dl_algoplatform_algo_serviceName
+        <set>
+            <if test="taskCount != null and taskCount !=''">
+                TASKCOUNT = #{taskCount},
+            </if>
+        </set>
+        <where>
+            DELETEFLAG=0
+            <if test="serviceName != null and serviceName != ''">
+                and serviceName = #{serviceName}
+            </if>
+        </where>
+    </update>
+    <delete id="deleteAlgoService">
+        update t_dl_algoplatform_algo_service
+        <set>
+            DELETEFLAG = 1
+        </set>
+        <where>
+            DELETEFLAG=0
+            and SERVICEID = #{serviceId}
+        </where>
+    </delete>
+</mapper>

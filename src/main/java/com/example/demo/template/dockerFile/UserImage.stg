@@ -1,0 +1,11 @@
+decl(baseImage,userPath,existsUserRequirement) ::= <<
+FROM <baseImage>
+ADD ./core /app/core
+ADD ./utils /app/utils
+WORKDIR /app
+ADD ./main.py /app/main.py
+<if (existsUserRequirement)>
+RUN pip install --no-cache-dir -r /app/algorithm/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+< endif >
+CMD [ "python","main.py" ]
+>>

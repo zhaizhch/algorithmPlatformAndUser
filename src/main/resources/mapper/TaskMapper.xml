@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.TaskMapper">
+    <resultMap id="TaskInfo" type="com.example.demo.entity.Task">
+    </resultMap>
+    <select id="queryTask" resultMap="TaskInfo">
+        select TASKID, TASKNAME, NAMESPACE, REPLICAS, DELETEFLAG, GPUMODEL, CREATEUSERID, SVCIP, CREATETIME,
+        REALTIMESTREAM, VIDEOFILE,ALGOTYPE
+        from t_dl_algoplatform_task
+        <where>
+            DELETEFLAG=0
+            <if test="taskId != null and taskId != ''">
+                and TASKID = #{taskId}
+            </if>
+            <if test="taskName != null and taskName != ''">
+                and TASKNAME = #{taskName}
+            </if>
+            <if test="namespace != null and namespace != ''">
+                and NAMESPACE = #{namespace}
+            </if>
+            <if test="searchCondition != null and searchCondition != ''">
+                and TASKNAME like binary CONCAT('%', #{searchCondition}, '%')
+            </if>
+        </where>
+    </select>
+    <insert id="insertTaskInfo">
+        insert into t_dl_algoplatform_task (TASKID, TASKNAME, NAMESPACE, REPLICAS, DELETEFLAG, GPUMODEL, CREATEUSERID,
+                                            SVCIP, TASKTYPE, CREATETIME, REALTIMESTREAM, VIDEOFILE, ALGOTYPE)
+        values (#{taskId}, #{taskName}, #{namespace}, #{replicas}, #{deleteFlag}, #{gpuModel}, #{createUserId},
+                #{svcIp}, #{taskType}, #{taskCreateTime}, #{realTimeStream}, #{videoFile}, #{algoType})
+    </insert>
+    <update id="updateTask">
+        update t_dl_algoplatform_task
+        <set>
+            <if test="videoFile != null and videoFile != ''">
+                and VIDEOFILE = #{videoFile}
+            </if>
+            <if test="taskName != null and taskName != ''">
+                and TASKNAME = #{taskName}
+            </if>
+            <if test="namespace != null and namespace != ''">
+                and NAMESPACE = #{namespace}
+            </if>
+            <if test="replicas != null and replicas != ''">
+                and REPLICAS = #{replicas}
+            </if>
+            <if test="gpuModel != null and gpuModel != ''">
+                and GPUMODEL = #{gpuModel}
+            </if>
+            <if test="creatUserId != null and creatUserId != ''">
+                and CREATUSERID = #{creatUserId}
+            </if>
+            <if test="svcIp != null and svcIp != ''">
+                and SVCIP = #{svcIp}
+            </if>
+            <if test="taskType != null and taskType != ''">
+                and TASKTYPE = #{taskType}
+            </if>
+            <if test="taskCreatTime != null and taskCreatTime != ''">
+                and CREATTIME = #{CreatTime}
+            </if>
+            <if test="realTimeStream != null and realTimeStream != ''">
+                and REALTIMESTREAM = #{realTimeStream}
+            </if>
+            <if test="videoFile != null and videoFile != ''">
+                and VIDEOFILE = #{videoFile}
+            </if>
+            <if test="algoType != null and algoType != ''">
+                and ALGOTYPE = #{algoType}
+            </if>
+        </set>
+
+        <where>
+            DELETEFLAG=0
+            <if test="taskId != null and taskId != ''">
+                and TASKID = #{taskId}
+            </if>
+        </where>
+    </update>
+    <delete id="deleteTask">
+        update t_dl_algoplatform_task
+        <set>
+            DELETEFLAG = 1
+        </set>
+        <where>
+            DELETEFLAG=0
+            and TASKID = #{taskId}
+        </where>
+    </delete>
+    <select id="queryTaskIds" parameterType="java.lang.String" resultType="java.lang.String">
+        select TASKID
+        from t_dl_algoplatform_task
+        <where>
+            DELETEFLAG=0
+            <if test="namespace != null and namespace != ''">
+                and NAMESPACE = #{namespace}
+            </if>
+        </where>
+    </select>
+</mapper>

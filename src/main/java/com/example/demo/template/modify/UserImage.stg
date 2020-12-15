@@ -1,0 +1,7 @@
+decl(baseImage) ::= <<
+FROM <baseImage>
+RUN rm -rf /app/workdir
+ADD ./modify /app/workdir
+WORKDIR /app
+CMD [ "python","main.py" ]
+>>

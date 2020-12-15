@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.ImageMapper">
+    <resultMap id="ImageInfo" type="com.example.demo.entity.Image">
+    </resultMap>
+
+    <insert id="insertImageInfo">
+        insert into t_dl_algoplatform_image (IMAGEID, IMAGENAME, IMAGETAG, IMAGEPORTS, IMAGEMOUNT, PVCSIZE, FACTORY,
+                                             ALGONAME, ALGODESC, DELETEFLAG, TVCHANNEL, PICS, CPUREQUESTS, GPUREQUESTS,
+                                             MEMREQUESTS, ALGOTYPE, CONFIG, EVENTTYPE, SUBPATH, HOSTPATH, WORKINGDIR,
+                                             ENV, COMMAND, ARGS, DEPENDENCYSERVICEID, FRAMEINTERVAL, FRAMENUMBER,
+                                             INCIDENTID, USEABLEFLAG)
+        values (#{imageId}, #{imageName}, #{imageTag}, #{imagePorts}, #{imageMount}, #{pvcSize}, #{factory},
+                #{algoName}, #{algoDesc}, #{deleteFlag}, #{tvChannel}, #{pics}, #{cpuRequests}, #{gpuRequests},
+                #{memRequests}, #{algoType}, #{config}, #{eventType}, #{subPath}, #{hostPath}, #{workingDir}, #{env},
+                #{command}, #{args}, #{dependencyServiceId}, #{frameInterval}, #{frameNumber}, #{incidentId},
+                #{useableFlag})
+    </insert>
+    <select id="queryImage" resultMap="ImageInfo">
+        select IMAGEID, IMAGENAME, IMAGETAG, IMAGEPORTS, IMAGEMOUNT, PVCSIZE, FACTORY, ALGONAME, ALGODESC, DELETEFLAG,
+        TVCHANNEL, PICS, CPUREQUESTS, GPUREQUESTS, MEMREQUESTS, ALGOTYPE, CONFIG, EVENTTYPE, SUBPATH, HOSTPATH,
+        WORKINGDIR, ENV, COMMAND, ARGS, DEPENDENCYSERVICEID, FRAMEINTERVAL, FRAMENUMBER, INCIDENTID, USEABLEFLAG
+        from t_dl_algoplatform_image
+        <where>
+            DELETEFLAG=0
+            <if test="imageId != null and imageId != ''">
+                and IMAGEID = #{imageId}
+            </if>
+            <if test="imageName != null and imageName != ''">
+                and IMAGENAME = #{imageName}
+            </if>
+            <if test="imageTag != null and imageTag != ''">
+                and IMAGETAG = #{imageTag}
+            </if>
+            <if test="algoName != null and algoName != ''">
+                and ALGONAME = #{algoName}
+            </if>
+            <if test="eventType != null and eventType != ''">
+                and EVENTTYPE = #{eventType}
+            </if>
+        </where>
+    </select>
+    <select id="queryImageByCondition" resultMap="ImageInfo">
+        select IMAGEID, IMAGENAME, IMAGETAG, IMAGEPORTS, IMAGEMOUNT, PVCSIZE, FACTORY, ALGONAME, ALGODESC, DELETEFLAG,
+        TVCHANNEL, PICS, CPUREQUESTS, GPUREQUESTS, MEMREQUESTS, ALGOTYPE, CONFIG, EVENTTYPE, SUBPATH, HOSTPATH,
+        WORKINGDIR, ENV, COMMAND, ARGS, DEPENDENCYSERVICEID, FRAMEINTERVAL, FRAMENUMBER, INCIDENTID, USEABLEFLAG
+        from t_dl_algoplatform_image
+        <where>
+            DELETEFLAG=0
+            <if test="namespace != null and namespace != ''">
+                and IMAGENAME like binary CONCAT(#{namespace}, '%')
+            </if>
+            <if test="searchCondition != null and searchCondition != ''">
+                and IMAGENAME like binary CONCAT('%', #{searchCondition}, '%')
+            </if>
+        </where>
+    </select>
+    <update id="updateImageInfo">
+        update t_dl_algoplatform_image
+        <set>
+            <if test="imagePorts != null and imagePorts !=''">
+                IMAGEPORTS = #{imagePorts},
+            </if>
+            <if test="imageMount != null and imageMount !=''">
+                IMAGEMOUNT = #{imageMount},
+            </if>
+            <if test="factory != null and factory != ''">
+                FACTORY = #{factory},
+            </if>
+            <if test="algoName != null and algoName != ''">
+                ALGONAME = #{algoName},
+            </if>
+            <if test="algoDesc != null and algoDesc != ''">
+                ALGODESC = #{algoDesc},
+            </if>
+            <if test="tvChannel != null and tvChannel != ''">
+                TVCHANNEL = #{tvChannel},
+            </if>
+            <if test="pics != null and pics != ''">
+                PICS = #{pics},
+            </if>
+            <if test="cpuRequests != null and cpuRequests != ''">
+                CPUREQUESTS = #{cpuRequests},
+            </if>
+            <if test="gpuRequests != null and gpuRequests != ''">
+                GPUREQUESTS = #{gpuRequests},
+            </if>
+            <if test="memRequests != null and memRequests != ''">
+                MEMREQUESTS = #{memRequests},
+            </if>
+            <if test="config != null and config != ''">
+                CONFIG = #{config},
+            </if>
+            <if test="algoType != null and algoType != ''">
+                ALGOTYPE = #{algoType},
+            </if>
+            <if test="subPath != null and subPath != ''">
+                SUBPATH = #{subPath},
+            </if>
+            <if test="hostPath != null and hostPath != ''">
+                HOSTPATH = #{hostPath},
+            </if>
+            <if test="workingDir != null and workingDir != ''">
+                WORKINGDIR = #{workingDir},
+            </if>
+            <if test="env != null and env != ''">
+                ENV = #{env},
+            </if>
+            <if test="command != null and command !=''">
+                COMMAND=#{command},
+            </if>
+            <if test="args != null and args != ''">
+                ARGS = #{args},
+            </if>
+            <if test="dependencyServiceId != null and dependencyServiceId != ''">
+                DEPENDENCYSERVICEID = #{dependencyServiceId},
+            </if>
+            <if test="frameInterval != null and frameInterval != ''">
+                FRAMEINTERVAL = #{frameInterval},
+            </if>
+            <if test="frameNumber != null and frameNumber != ''">
+                FRAMENUMBER = #{frameNumber},
+            </if>
+        </set>
+        <where>
+            DELETEFLAG=0
+            <if test="imageId != null and imageId != ''">
+                and IMAGEID = #{imageId}
+            </if>
+        </where>
+    </update>
+    <select id="queryDependencyImage" resultMap="ImageInfo">
+        select IMAGEID, IMAGENAME, IMAGETAG, IMAGEPORTS, IMAGEMOUNT, PVCSIZE, FACTORY, ALGONAME, ALGODESC, DELETEFLAG,
+        TVCHANNEL, PICS, CPUREQUESTS, GPUREQUESTS, MEMREQUESTS, ALGOTYPE, CONFIG, EVENTTYPE, SUBPATH, HOSTPATH,
+        WORKINGDIR, ENV, COMMAND, ARGS, DEPENDENCYSERVICEID, FRAMEINTERVAL, FRAMENUMBER, INCIDENTID, USEABLEFLAG
+        from t_dl_algoplatform_image
+        <where>
+            DELETEFLAG=0
+            <if test="eventType != null and eventType != ''">
+                and (DEPENDENCYSERVICEID like binary CONCAT(#{eventType}, ',%')
+                or DEPENDENCYSERVICEID like binary CONCAT('%,',#{eventType}, ',%')
+                or DEPENDENCYSERVICEID like binary CONCAT('%,',#{eventType})
+                or DEPENDENCYSERVICEID = #{eventType})
+            </if>
+        </where>
+    </select>
+    <delete id="deleteImage">
+        update t_dl_algoplatform_image
+        <set>
+            DELETEFLAG = 1
+        </set>
+        <where>
+            DELETEFLAG=0
+            and IMAGEID = #{imageId}
+        </where>
+    </delete>
+
+</mapper>

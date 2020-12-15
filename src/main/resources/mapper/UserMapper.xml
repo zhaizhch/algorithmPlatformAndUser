@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UserMapper">
+    <resultMap id="UserInfo" type="com.example.demo.entity.User">
+    </resultMap>
+    <select id="queryUserInfoByName" resultMap="UserInfo">
+        select userId, tenant, userName, password, token, landTime, authority, belongTo
+        from User
+        <where>
+            <if test="userName != null and userName != ''">
+                and userName = #{userName}
+            </if>
+        </where>
+        limit 1
+    </select>
+    <select id="queryUserInfoByToken" resultMap="UserInfo">
+        select userId, tenant, userName, password, token, landTime, authority, belongTo
+        from User
+        <where>
+            <if test="token != null and token != ''">
+                and token = #{token}
+            </if>
+        </where>
+        limit 1
+    </select>
+    <select id="queryUserInfoById" resultMap="UserInfo">
+        select userId, tenant, userName, password, token, landTime, authority, belongTo
+        from User
+        <where>
+            <if test="userId != null and userId != ''">
+                and userId = #{userId}
+            </if>
+        </where>
+        limit 1
+    </select>
+    <select id="queryAllUserInfo" resultMap="UserInfo">
+        select userId, tenant, userName, password, token, landTime, authority, belongTo
+        from User
+        <where>
+            <if test="userName != null and userName != ''">
+                and userName like binary CONCAT('%', #{userName}, '%')
+            </if>
+        </where>
+        order by landTime DESC
+    </select>
+    <insert id="insertUserInfo">
+        insert into User (userId, tenant, userName, password, token, landTime, authority, belongTo)
+        values (#{userId}, #{tenant}, #{userName}, #{password}, #{token}, #{landTime}, #{authority}, #{belongTo})
+    </insert>
+    <delete id="deleteUserInfoByIds">
+        delete from User
+        where userId in
+        <if test="userIds != null and userIds.size() > 0">
+            <foreach collection="userIds" item="id" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+        </if>
+    </delete>
+    <update id="updateUserInfo">
+        update User
+        <set>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="userName != null and userName != ''">
+                userName = #{userName},
+            </if>
+            <if test="authority != null">
+                authority = #{authority},
+            </if>
+            <if test="landTime != null">
+                landtime = #{landTime},
+            </if>
+            <if test="token != null and token != ''">
+                token = #{token},
+            </if>
+            <if test="belongTo != null and belongTo != ''">
+                belongTo = #{belongTo},
+            </if>
+        </set>
+        <where>
+            <if test="userId != null and userId != ''">
+                userId = #{userId}
+            </if>
+        </where>
+    </update>
+</mapper>
