@@ -544,8 +544,9 @@ public class TaskService {
                 .endSpec()
                 .build();
         //创建depYaml
+        //创建containerArraryList，withContianers()的传入参数
         ArrayList<V1Container> containerArrayList =new ArrayList<>();
-
+        //创建v1container
         V1Container v1Container=new V1Container();
         v1Container.setName(realName);
         v1Container.setImage(HARBOR+"/"+searchImage.getImageName()+":"+searchImage.getImageTag());
@@ -570,7 +571,6 @@ public class TaskService {
         v1VolumeMount.setMountPath("/LOG");
         v1VolumeMount.setReadOnly(false);
         volumeMounts.add(v1VolumeMount);
-
         V1VolumeMount v1VolumeMount2=new V1VolumeMount();
         v1VolumeMount2.setName("modify");
         v1VolumeMount2.setMountPath("/app/modify");
@@ -596,9 +596,7 @@ public class TaskService {
         v1HostPathVolumeSource2.setPath(MODIFY_SAVE_PATH+taskDto.getImageDto().getEventType().toString()+"/modify");
         v1Volume2.setHostPath(v1HostPathVolumeSource2);
         volumeArrayList.add(v1Volume2);
-
-
-
+        //创建depYaml
         AppsV1beta1Deployment depYaml = new AppsV1beta1DeploymentBuilder()
                 .withApiVersion("apps/v1beta1")
                 .withKind("Deployment")

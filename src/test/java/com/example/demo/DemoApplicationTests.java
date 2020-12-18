@@ -4,6 +4,7 @@ import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
 import ch.ethz.ssh2.StreamGobbler;
 import org.junit.platform.commons.util.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.*;
@@ -20,14 +21,14 @@ public class DemoApplicationTests {
 
     private static String  DEFAULTCHART="UTF-8";
     public static void main(String[] args) throws IOException {
-        Integer port=22;
+/*        Integer port=22;
         String ip="192.168.119.100";
         String userName="root";
         String password="ehl1234";
         Connection conn=login(ip,port,userName,password);
         String cmd="touch test.txt";
         String result=execute(conn,cmd);
-        System.out.println(splitStr + "\n执行的结果如下: \n" + result + splitStr);
+        System.out.println(splitStr + "\n执行的结果如下: \n" + result + splitStr);*/
     }
     /**
      * 解压zip文件

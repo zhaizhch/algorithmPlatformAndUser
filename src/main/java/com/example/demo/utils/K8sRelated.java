@@ -226,7 +226,7 @@ public class K8sRelated {
 //                    JSONObject portsDict =new JSONObject();
                     port1.setPortName(port.getName());
                     port1.setPortNode(port.getNodePort());
-                    port1.setPortTarget(port.getTargetPort());
+                    port1.setPortTarget(port.getTargetPort().getStrValue());
                     portList.add(port1);
                     break;
                 }

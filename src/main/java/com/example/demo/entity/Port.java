@@ -27,7 +27,7 @@ public class Port {
         return portTarget;
     }
 
-    public void setPortTarget(IntOrString portTarget) {
+    public void setPortTarget(String portTarget) {
         this.portTarget = portTarget;
     }
 

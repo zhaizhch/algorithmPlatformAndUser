@@ -22,6 +22,39 @@ public class AlgoServiceDto {
     private String imageTag;
     private String status;
     private Integer option;
+    private String subpath;
+    private String hostpath;
+    private String imagePort;
+    private String args;
+    private String algoServiceId;
+    private String imageConfig;
+    private String taskId;
+    private String namespace;
+    private String runPosition;
+
+    public String getRunPosition() {
+        return runPosition;
+    }
+
+    public void setRunPosition(String runPosition) {
+        this.runPosition = runPosition;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
+
+    public String getNamespace() {
+        return namespace;
+    }
+
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
+    }
 
     public String getServiceId() {
         return serviceId;
@@ -191,6 +224,54 @@ public class AlgoServiceDto {
         this.option = option;
     }
 
+    public String getSubpath() {
+        return subpath;
+    }
+
+    public void setSubpath(String subpath) {
+        this.subpath = subpath;
+    }
+
+    public String getHostpath() {
+        return hostpath;
+    }
+
+    public void setHostpath(String hostpath) {
+        this.hostpath = hostpath;
+    }
+
+    public String getImagePort() {
+        return imagePort;
+    }
+
+    public void setImagePort(String imagePort) {
+        this.imagePort = imagePort;
+    }
+
+    public String getArgs() {
+        return args;
+    }
+
+    public void setArgs(String args) {
+        this.args = args;
+    }
+
+    public String getAlgoServiceId() {
+        return algoServiceId;
+    }
+
+    public void setAlgoServiceId(String algoServiceId) {
+        this.algoServiceId = algoServiceId;
+    }
+
+    public String getImageConfig() {
+        return imageConfig;
+    }
+
+    public void setImageConfig(String imageConfig) {
+        this.imageConfig = imageConfig;
+    }
+
     @Override
     public String toString() {
         return "AlgoServiceDto{" +
@@ -211,10 +292,19 @@ public class AlgoServiceDto {
                 ", target=" + target +
                 ", isStart='" + isStart + '\'' +
                 ", imageId='" + imageId + '\'' +
-                ", taskCount='" + taskCount + '\'' +
+                ", taskCount=" + taskCount +
                 ", imageTag='" + imageTag + '\'' +
                 ", status='" + status + '\'' +
-                ", option='" + option + '\'' +
+                ", option=" + option +
+                ", subpath='" + subpath + '\'' +
+                ", hostpath='" + hostpath + '\'' +
+                ", imagePort='" + imagePort + '\'' +
+                ", args='" + args + '\'' +
+                ", algoServiceId='" + algoServiceId + '\'' +
+                ", imageConfig='" + imageConfig + '\'' +
+                ", taskId='" + taskId + '\'' +
+                ", namespace='" + namespace + '\'' +
+                ", runPosition='" + runPosition + '\'' +
                 '}';
     }
 }
