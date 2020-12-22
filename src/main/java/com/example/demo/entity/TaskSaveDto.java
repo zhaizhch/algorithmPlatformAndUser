@@ -31,6 +31,15 @@ public class TaskSaveDto {
     private String imageName;
     private String StartType;
     private UserResult userResult;
+    private String taskId;
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
 
     public String getTaskName() {
         return taskName;
@@ -215,6 +224,7 @@ public class TaskSaveDto {
                 ", imageName='" + imageName + '\'' +
                 ", StartType='" + StartType + '\'' +
                 ", userResult=" + userResult +
+                ", taskId='" + taskId + '\'' +
                 '}';
     }
 }
